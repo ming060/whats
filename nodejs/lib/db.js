@@ -20,3 +20,8 @@ var Comment = new Schema(
 mongoose.model("User", User);
 mongoose.model("Comment", Comment);
 mongoose.connect("mongodb://localhost/Guestbook");
+
+exports.CheckUser = function()
+{
+	console.log("CheckUser");
+}

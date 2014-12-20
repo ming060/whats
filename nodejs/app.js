@@ -44,7 +44,7 @@ if ("development" == app.get('env'))
 app.post("/register", register);
 app.post("/login", login);
 app.post("/read", read);
-app.post('/write, write);
+app.post("/write", write);
 
 http.createServer(app).listen(app.get("port"), 
 	function()
@@ -79,6 +79,6 @@ function write(req, res)
 	console.log("write");
 	console.log("Username: " + req.body.username);
 	console.log("Password: " + req.body.password);
-	console.log("Receiver" + req.body.receiver);
-	console.log("Message" + req.body.message);
+	console.log("Receiver: " + req.body.receiver);
+	console.log("Message: " + req.body.message);
 }
