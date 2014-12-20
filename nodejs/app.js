@@ -208,21 +208,28 @@ function VerifyUserForRead(err, count, req, res)
 	}
 }
 
-function ReadCommentsRes(err, comments, res)
+function ReadCommentsRes(err, comments, username, res)
 {
 	var status;
 	var msg;
+	var isJSON;
 	if (err)
 	{
 		status = 403;
 		msg = "WTF";
+		isJSON = false;
 	}
 	else
 	{
 		status = 200;
 		msg = comments;
+		isJSON = true;
 	}
-	Respond(status, msg, true, res);
+	Respond(status, msg, isJSON, res);
+	if (!err && comments.length)
+	{
+		db.DeleteComments(username, comments[comments.length - 1].Timestamp);
+	}
 }
 
 function write(req, res)

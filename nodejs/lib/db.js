@@ -63,9 +63,17 @@ exports.ReadComments = function(username, res, callback)
 		{"Receiver": username}, 
 		function(err, comments)
 		{
-			callback(err, comments, res);
+			callback(err, comments, username, res);
 		}
 	);
+}
+
+exports.DeleteComments = function(username, timestamp)
+{
+	console.log("DeleteComments");
+	var query = Comments.find().remove(
+		{$and:[{"Receiver": username}, {"Timestamp": {$lte: timestamp}}]});
+	query.exec();// real delete
 }
 
 exports.WriteComment = function(req, res, callback)
