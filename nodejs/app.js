@@ -6,7 +6,6 @@ var db = require("./lib/db") ;
 var express = require("express");
 var http = require("http");
 var path = require("path");
-//var cors = require("cors");
 
 var mongoose = require("mongoose");
 var Users = mongoose.model("User");
@@ -31,8 +30,15 @@ function SetConfigure()
 			secret: "HelloExpressSESSION"
 		}
 	));
+	app.use(
+		function(req, res, next) 
+		{
+		  res.header("Access-Control-Allow-Origin", "*");
+		  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+		  next();
+		}
+	);
 	app.use(express.bodyParser());
-	//app.use(cors);
 }
 app.use(app.router);
 app.use(express.static(path.join(__dirname, "public")));
@@ -60,6 +66,7 @@ function Respond(status, msg, isJSON, res)
 	console.log("status: " + status);
 	console.log("message: " + msg);
 	res.status(status)
+	
 	if (isJSON)
 	{
 		res.json(msg);
