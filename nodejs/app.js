@@ -41,10 +41,10 @@ if ("development" == app.get('env'))
   app.use(express.errorHandler());
 }
 
-app.get("/register", register);
-app.get("/login", login);
-app.get("/read/:id", read);
-app.post('/write/:id', write);
+app.post("/register", register);
+app.post("/login", login);
+app.post("/read", read);
+app.post('/write, write);
 
 http.createServer(app).listen(app.get("port"), 
 	function()
@@ -56,25 +56,29 @@ http.createServer(app).listen(app.get("port"),
 function register(req, res)
 {
 	console.log("register");
-	console.log("Username: " + req.query.username);
-	console.log("Password: " + req.query.password);
+	console.log("Username: " + req.body.username);
+	console.log("Password: " + req.body.password);
 }
 
 function login(req, res)
 {
 	console.log("login");
-	console.log("Username: " + req.query.username);
-	console.log("Password: " + req.query.password);
+	console.log("Username: " + req.body.username);
+	console.log("Password: " + req.body.password);
 }
 
 function read(req, res)
 {
-	console.log("read" + req.params.id);
+	console.log("read");
+	console.log("Username: " + req.body.username);
+	console.log("Password: " + req.body.password);
 }
 
 function write(req, res)
 {
-	console.log("write" + req.params.id);
-	console.log("Producer" + req.body.producer);
+	console.log("write");
+	console.log("Username: " + req.body.username);
+	console.log("Password: " + req.body.password);
 	console.log("Receiver" + req.body.receiver);
+	console.log("Message" + req.body.message);
 }
