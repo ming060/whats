@@ -15,8 +15,10 @@ var LoginForm = React.createClass({
         console.log('data'+ data);
       }
     })
-    .done(function(msg) {
-      console.log('msg: '+ msg);
+    .done(function(xhr, textStatus) {
+      // if(xhr.status == 200)
+      Session.set('username', username);
+      Session.set('password', password);
       window.location.assign("show_messages.html");
     });
   },
