@@ -10,6 +10,7 @@
         var password = Session.get('password');
         $('#username').val(username);
         $('#password').val(password);
+        document.getElementById("username-p").innerHTML = username;
 
         $('#post').click(function(){
           var message = $("#message").val();
@@ -36,6 +37,7 @@
   </head>
   <body>
     <div id="content">
+      User: <p id="username-p">aaa</p>
       Receiver: <input type="text" id="receiver"name="receiver"/><br/>
       Content: <input type="text" id="message" name="message"/><br/>
       <input type="text" id="username" name="username" style="display:none;"/>
