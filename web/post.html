@@ -5,23 +5,42 @@
     <script src="js/session.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
     <script type="text/javascript">
-    $( document ).ready(function() {
+    $( document).ready(function() {
         var username = Session.get('username');
         var password = Session.get('password');
         $('#username').val(username);
         $('#password').val(password);
+
+        $('#post').click(function(){
+          var message = $("#message").val();
+          var receiver = $("#receiver").val();
+          console.log('receiver: ' + receiver);
+          console.log('message: ' + message);
+          $.ajax({
+            type: "POST",
+            url: "http://192.168.1.69:3000/write",
+            data: {'username': username, 'password': password, 'receiver': receiver, 'message': message},
+            error(jqXHR, textStatus, errorThrown){
+              console.log(textStatus);
+              alert("Post Fail");
+              location.reload();
+            },
+            success(data, textStatus, jqXHR) {
+              alert('Post Success!!!');
+              window.location.assign("show_messages.html");
+            }
+          })
+        });
     });
     </script>
   </head>
   <body>
     <div id="content">
-      <form action="http://192.168.1.69:3000/write" method="post">
-      Receiver: <input type="text" name="receiver"/><br/>
-      Content: <input type="text" name="message"/><br/>
+      Receiver: <input type="text" id="receiver"name="receiver"/><br/>
+      Content: <input type="text" id="message" name="message"/><br/>
       <input type="text" id="username" name="username" style="display:none;"/>
       <input type="text" id="password" name="password" style="display:none;"/>
-      <input type="submit" value="post"/>
-      </form>
+      <input type="submit" id="post" value="post"/>
     </div>
   </body>
 </html>

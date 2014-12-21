@@ -16,7 +16,6 @@ var LoginForm = React.createClass({
       }
     })
     .done(function(xhr, textStatus) {
-      // if(xhr.status == 200)
       Session.set('username', username);
       Session.set('password', password);
       window.location.assign("show_messages.html");
@@ -31,7 +30,6 @@ var LoginForm = React.createClass({
       alert("User Name & password should not be empty");
       return;
     }
-    // TODO: send request to the server
     this.login(username, password);
     return;
   },
