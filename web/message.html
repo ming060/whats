@@ -41,13 +41,33 @@
       }
       $(document).ready(function() {
         var message = getUrlVars()["message"];
+        message = decodeURI(message);
         document.getElementById('content').innerHTML = message;
-        setInterval("getCurrentTime()", 500);
+
+        var interval = 1000;
+        var length = message.length
+        if(length < 5){
+          interval = 3000;
+        }
+        else if(length > 5){
+          interval = 500;
+        }
+        else if(length > 10){
+          interval = 100;
+        }
+        setInterval("getCurrentTime()", interval);
       });
     </script>
+    <style>
+      .div{
+        font-size: 1.5em;
+      }
+    </style>
+
   </head>
   <body>
-    <div id="content">
+    <div >
+      <font size="30" id="content"></font>
     </div>
     <div id="clock">
     </div>

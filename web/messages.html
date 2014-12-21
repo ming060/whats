@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Whats!!!</title>
   	<meta charset="utf-8">
-    <script src="js/session.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script src="js/session.js"></script>
     <script type="text/javascript">
     function string_to_s(message){
       var s = '';
@@ -31,6 +32,17 @@
       document.getElementById("username-p").innerHTML = username;
       console.log(username);
       console.log(password);
+
+
+      $('ul').on('click', 'button', function() {
+        var _this = this;
+        $(this).parent().append("<img src='pic/Explode_fire.gif'/>");
+         window.open('message.html/?message=' + this.value, '_blank', 'titlebar=no,status=0,menubar=0,scrollbars=0,toolbar=0,width=500,top=500,left=500,height=300');
+        setTimeout(function() {
+          $(_this).parent().remove();
+        }, 100);
+      })
+
       $.ajax({
         type: "POST",
         url: "http://192.168.1.69:3000/read",
@@ -43,12 +55,6 @@
             console.log(message);
             var list_item = get_list_item(message.Timestamp, message.Provider, message.Message, new Date(message.Timestamp).toLocaleString() );
             document.getElementById('list').appendChild(list_item);
-            $('#' + message.Timestamp).on('click', function() {
-              Session.set('message', this.value);
-              console.log('value: ' + this.value);
-              $('#' + message.Timestamp).css('display', 'none');
-              window.open('message.html/?message=' + this.value, '_blank', 'titlebar=no');
-            });
           };
         }
       })
@@ -56,12 +62,17 @@
       });
     });
     </script>
+
+    <style>
+    </style>
+
   </head>
   <body>
     User: <p id="username-p"></p>
-    <div id="content">
+    <div id="content" >
       <ul id='list' style="list-style-type:none">
       </ul>
     </div>
+
   </body>
 </html>
