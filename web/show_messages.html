@@ -1,34 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="js/css-pop.js"></script>
+  	<script src="js/session.js"></script>
   	<script src="http://fb.me/react-0.12.2.js"></script>
     <script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-    <script src="js/session.js"></script>
-    <script type="text/javascript">
-	    $( document ).ready(function() {
-	    	var username = Session.get('username');
-	    	var password = Session.get('password');
-	    	console.log(username);
-	    	console.log(password);
-		    $.ajax({
-		      type: "POST",
-		      url: "http://192.168.1.69:3000/read",
-		      data: {'username': username, 'password': password},
-		      success(data){
-		      	console.log(data);
-		      }
-		    })
-		    .done(function(msg) {
-		      console.log('msg: '+ msg);
-		      alert( "Data Saved: " + msg );
-		    });
-	    });
-    </script>
   </head>
-  <body>
+  <body >
+   	<!--POPUP-->
+    
+   <div id="blanket" style="display:none;"></div>
+	<div id="msgPopUpDiv" style="display:none;">
+    
+    	<a href="#" onclick="popup('msgPopUpDiv')" >Click to Close CSS Pop Up</a>
+	</div>
+<!-- / POPUP--> 
+
     <div id="content"></div>
     <script type="text/jsx"src="js/show_list.js"></script>
-    <a href="post.html">Post</a>
   </body>
 </html>
