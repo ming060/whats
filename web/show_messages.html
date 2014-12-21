@@ -9,18 +9,42 @@
   	<script src="http://fb.me/react-0.12.2.js"></script>
     <script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="js/fire-0.62.min.js"></script>
+   <!--   <script>
+    <!--
+	$(document).ready( function(){
+		$('.fire').fire({
+			speed:100,
+			maxPow:9,
+			gravity:0,
+			flameWidth:3,
+			flameHeight:0,
+			plasm:true,
+			fireTransparency:0,
+			fadingFlameSpeed:8,
+			mouseEffect:true
+		});	
+	});
+    
+    </script>-->
+
   </head>
   <body >
    	<!--POPUP-->
     
    <div id="blanket" style="display:none;"></div>
+   
 	<div id="msgPopUpDiv" style="display:none;">
-    
-    	<a href="#" onclick="popup('msgPopUpDiv')" >Click to Close CSS Pop Up</a>
+
 	</div>
 <!-- / POPUP--> 
+<div class="fire" id="fire" style="display:none;">
+   	<img src="pic/Explode_fire.gif" /></div>
 
     <div id="content"></div>
-    <script type="text/jsx"src="js/show_list.js"></script>
+    <script type="text/jsx"src="js/show_list.js" ></script>
+    <script type="text/javascript">
+  (new Image()).src = "pic/Explode_fire.gif"; // this would preload the GIF, so future loads will be instantaneous
+</script>
   </body>
 </html>

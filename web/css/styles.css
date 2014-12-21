@@ -66,4 +66,12 @@ img {border:0px}
 	z-index: 9002;
 }
 
+#fire {
+	position:absolute;
+	*background:none;
+	width:400px;
+	height:400px;
+	z-index: 9003;
+}
+
 #popUpDiv a {position:relative; top:20px; left:20px}

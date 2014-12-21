@@ -1,12 +1,89 @@
 
+var globalVar;
 var ShortMessage = React.createClass({
-	handleClick: function(){
-      popup('msgPopUpDiv');
+	updatePopUpDiv: function(popupDiv, fromwho, message, senttime){
+		while (popupDiv.firstChild) {
+		    popupDiv.removeChild(popupDiv.firstChild);
+		}
+
+		var elementToAdd = document.createElement("a");
+		var textToShow = document.createTextNode("[x]Close"); 
+		elementToAdd.appendChild(textToShow);
+		elementToAdd.href="#";
+		elementToAdd.onclick=function() {
+			popup('msgPopUpDiv');
+			popup('fire');
+			setTimeout(function(){popup('fire');}, 2000);
+		};
+		popupDiv.appendChild(elementToAdd);
+		elementToAdd = document.createElement("h5");
+		textToShow = document.createTextNode(fromwho); 
+		elementToAdd.appendChild(textToShow);
+		popupDiv.appendChild(elementToAdd);
+		elementToAdd = document.createElement("DIV");
+		textToShow = document.createTextNode(message); 
+		elementToAdd.appendChild(textToShow);
+		popupDiv.appendChild(elementToAdd);
+		elementToAdd = document.createElement("DIV");
+		textToShow = document.createTextNode(senttime); 
+		elementToAdd.appendChild(textToShow);
+		popupDiv.appendChild(elementToAdd);
+
+
+	},
+
+	transformMsg: function (element){
+		//
+		console.log("timeout " + element);
+      		
+		this.togglePopup();	
+		this.fade(element);
+		// window.clearTimeout(globalVar);
+	},
+
+
+	togglePopup: function () {
+	    popup('msgPopUpDiv');
+		
+	},
+
+	fade: function (element) {
+	    var op = 1;  // initial opacity
+	    var timer = setInterval(function () {
+	        if (op <= 0.1){
+	            clearInterval(timer);
+	            element.style.display = 'none';
+	            // popup('fire');
+	        }
+	        element.style.opacity = op;
+	        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+	        op -= op * 0.05;
+	    }, 20);
+	},
+
+	handleClick: function(fromwho, message, senttime, elementId){
+		var popupDiv = document.getElementById('msgPopUpDiv');
+		console.log("elementId = " + elementId);
+
+		var messageList = document.getElementById("msglist");
+		if (!messageList || !messageList.firstChild) {
+			return;
+		}
+
+		var messageElement = document.getElementById(elementId);
+		
+		this.updatePopUpDiv(popupDiv, fromwho, message, senttime);
+      	this.togglePopup();
+      	this.fade(messageElement);
+      	// globalVar = setTimeout(
+      	// 	this.transformMsg(messageElement), 2000);
  	},
+
 	render: function(){
+		console.log("prop " + this.props);
 		return (
-			<div className="shortmessage"
-			onClick={this.handleClick}>
+			<div className="shortmessage" id={this.props.id} 
+			onClick={this.handleClick.bind(this, this.props.fromwho, this.props.children, this.props.senttime, this.props.id)}>
 				<h5 >{this.props.fromwho}</h5>
 				<div >{this.props.senttime}</div>				
 				<br />
@@ -29,6 +106,9 @@ var Message = React.createClass({
 });
 
 var MessageList = React.createClass({
+	handleClick: function(){
+		console.log("list click");
+	},
 	loadMessagesFromServer: function() {
 		var username = Session.get('username');
 	    var password = Session.get('password');
@@ -62,7 +142,7 @@ var MessageList = React.createClass({
 			console.log("time: " + message.Timestamp);
 			return (
 
-				<ShortMessage fromwho={message.Provider} senttime={date.toLocaleString()} >
+				<ShortMessage fromwho={message.Provider} senttime={date.toLocaleString()} id={message.Provider+message.Timestamp}>
 				{message.Message}</ShortMessage>
 			);
 		});
